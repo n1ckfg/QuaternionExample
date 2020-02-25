@@ -1,5 +1,5 @@
 Quaternion q;
-float rotDelta = 0.03;
+float rotDelta = 0.05;
 
 void setup() {
   size(800, 800, P3D);
@@ -10,32 +10,30 @@ void setup() {
 void draw() {
   background(0); 
   fill(0,255,255);
-  text("W A S D Q E", 10, 20);
-  
+  text("W A S D Q E", 10, 20); 
   lights();
-  
 
   pushMatrix();
   translate(width/2, height/2, 0);
   
   if (keyPressed) {
     switch(key) {
-      case 's':
+      case 'w':
         q.rotateAxisX(rotDelta);
         break;
-      case 'w':
+      case 's':
         q.rotateAxisX(-rotDelta);
         break;
-      case 'a':
+      case 'd':
         q.rotateAxisY(rotDelta);
         break;
-      case 'd':
+      case 'a':
         q.rotateAxisY(-rotDelta);
         break;
-      case 'q':
+      case 'e':
         q.rotateAxisZ(rotDelta);
         break;
-      case 'e':
+      case 'q':
         q.rotateAxisZ(-rotDelta);        
         break;
     }
