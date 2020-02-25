@@ -41,7 +41,9 @@ class Quaternion {
   // https://stackoverflow.com/questions/4436764/rotating-a-quaternion-on-1-axis
   // https://github.com/jdf/peasycam/blob/master/src/peasy/org/apache/commons/math/geometry/Rotation.java#L20
   Quaternion calculateRotation(float angle, PVector p) {
-    float norm = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+    float norm = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);  
+    if (norm == 0) println("zero norm for rotation axis");
+    
     float halfAngle = -0.5 * angle;
     float coeff = sin(halfAngle) / norm;
     
@@ -69,6 +71,18 @@ class Quaternion {
     float d = x * q2.w + y * q2.z - z * q2.y + w * q2.x;
     
     return new Quaternion(a, b, c, d);
+  }
+  
+  Quaternion identity() {
+    x = 1;
+    y = 0;
+    z = 0;
+    w = 0;
+    return new Quaternion(x, y, z, w);
+  }
+  
+  void debug() {
+    println("x: " + x + ", y: " + y + ", z: " + z + ", w: " + w);
   }
   
   float[][] calculateMatrix() {
