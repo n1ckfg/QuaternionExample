@@ -1,6 +1,6 @@
 Quaternion q;
 PVector rot = new PVector(0,0,0);
-float rotDelta = 0.05;
+float rotDelta = 0.03;
 
 void setup() {
   size(800, 800, P3D);
@@ -17,27 +17,27 @@ void draw() {
 
   if (keyPressed) {
     switch(key) {
-      case 'q':
+      case 's':
         rot.x += rotDelta;
         q.rotateAxisX(rot.x);
         break;
-      case 'e':
+      case 'w':
         rot.x += -rotDelta;
         q.rotateAxisX(rot.x);
         break;
-      case 'd':
+      case 'a':
         rot.y += rotDelta;
         q.rotateAxisY(rot.y);
         break;
-      case 'a':
+      case 'd':
         rot.y += -rotDelta;
         q.rotateAxisY(rot.y);
         break;
-      case 's':
+      case 'q':
         rot.z += rotDelta;
         q.rotateAxisZ(rot.z);
         break;
-      case 'w':
+      case 'e':
         rot.z += -rotDelta;
         q.rotateAxisZ(rot.z);        
         break;

@@ -17,49 +17,46 @@ class Quaternion {
     w = _w;
   }
   
-  Quaternion rotateAxisX(float angle) {
-    return rotateAxis(angle, 1, 0, 0);
+  void rotateAxisX(float angle) {
+    rotateAxis(angle, 1, 0, 0);
   }
   
-  Quaternion rotateAxisY(float angle) {
-    return rotateAxis(angle, 0, 1, 0);
+  void rotateAxisY(float angle) {
+    rotateAxis(angle, 0, 1, 0);
   } 
   
-  Quaternion rotateAxisZ(float angle) {
-    return rotateAxis(angle, 0, 0, 1);
+  void rotateAxisZ(float angle) {
+    rotateAxis(angle, 0, 0, 1);
   }
    
-  Quaternion rotateAxis(float angle, PVector p) {
+  void rotateAxis(float angle, PVector p) {
     Quaternion q = calculateRotation(angle, p);
     x = q.x;
     y = q.y;
     z = q.z;
     w = q.w;
-    return q;
   }
-    
-  Quaternion rotateAxis(float angle, float _x, float _y, float _z) {
+   
+  // https://answers.unity.com/questions/1209461/problem-using-quaternionangleaxis-around-transform.html  
+  void rotateAxis(float angle, float _x, float _y, float _z) {
     Quaternion q = calculateRotation(angle, new PVector(_x, _y, _z));
     x = q.x;
     y = q.y;
     z = q.z;
     w = q.w;
-    return q;
   }
   
   // https://stackoverflow.com/questions/4436764/rotating-a-quaternion-on-1-axis
+  // https://github.com/jdf/peasycam/blob/master/src/peasy/org/apache/commons/math/geometry/Rotation.java#L20
   Quaternion calculateRotation(float angle, PVector p) {
-    // Here we calculate the sin( theta / 2) once for optimization
-    float factor = sin(angle / 2.0);
-
-    // Calculate the x, y and z of the quaternion
-    float a = p.x * factor;
-    float b = p.y * factor;
-    float c = p.z * factor;
-
-    // Calcualte the w value by cos( theta / 2 )
-    float d = cos(angle / 2.0);
+    float norm = sqrt(p.x * p.x + p.y * p.y + p.z * p.z);
+    float halfAngle = -0.5 * angle;
+    float coeff = sin(halfAngle) / norm;
     
+    float a = cos(halfAngle);
+    float b = coeff * p.x;
+    float c = coeff * p.y;
+    float d = coeff * p.z;    
     return new Quaternion(a, b, c, d).normalize();
   }
   
