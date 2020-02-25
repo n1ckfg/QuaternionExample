@@ -1,5 +1,4 @@
 Quaternion q;
-PVector rot = new PVector(0,0,0);
 float rotDelta = 0.03;
 
 void setup() {
@@ -10,41 +9,55 @@ void setup() {
 
 void draw() {
   background(0); 
+  fill(0,255,255);
   text("W A S D Q E", 10, 20);
+  
+  lights();
+  
 
   pushMatrix();
   translate(width/2, height/2, 0);
-
+  
   if (keyPressed) {
     switch(key) {
       case 's':
-        rot.x += rotDelta;
-        q.rotateAxisX(rot.x);
+        q.rotateAxisX(rotDelta);
         break;
       case 'w':
-        rot.x += -rotDelta;
-        q.rotateAxisX(rot.x);
+        q.rotateAxisX(-rotDelta);
         break;
       case 'a':
-        rot.y += rotDelta;
-        q.rotateAxisY(rot.y);
+        q.rotateAxisY(rotDelta);
         break;
       case 'd':
-        rot.y += -rotDelta;
-        q.rotateAxisY(rot.y);
+        q.rotateAxisY(-rotDelta);
         break;
       case 'q':
-        rot.z += rotDelta;
-        q.rotateAxisZ(rot.z);
+        q.rotateAxisZ(rotDelta);
         break;
       case 'e':
-        rot.z += -rotDelta;
-        q.rotateAxisZ(rot.z);        
+        q.rotateAxisZ(-rotDelta);        
         break;
     }
   }
   
-  q.run();
+  q.run();  
+
+  noStroke();
+  fill(255,0,0);
   box(100);
+  
+  pushMatrix();
+  translate(0,50,0);
+  fill(255,255,0);
+  sphere(30);
+  popMatrix();
+
+  pushMatrix();
+  translate(0,-50,0);
+  fill(0,255,255);
+  sphere(30);
+  popMatrix();
+   
   popMatrix();
 }

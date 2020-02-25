@@ -18,34 +18,26 @@ class Quaternion {
   }
   
   void rotateAxisX(float angle) {
-    rotateAxis(angle, 1, 0, 0);
+    rotateAxis(angle, new PVector(1, 0, 0));
   }
   
   void rotateAxisY(float angle) {
-    rotateAxis(angle, 0, 1, 0);
+    rotateAxis(angle, new PVector(0, 1, 0));
   } 
   
   void rotateAxisZ(float angle) {
-    rotateAxis(angle, 0, 0, 1);
+    rotateAxis(angle, new PVector(0, 0, 1));
   }
-   
-  void rotateAxis(float angle, PVector p) {
-    Quaternion q = calculateRotation(angle, p);
-    x = q.x;
-    y = q.y;
-    z = q.z;
-    w = q.w;
-  }
-   
+
   // https://answers.unity.com/questions/1209461/problem-using-quaternionangleaxis-around-transform.html  
-  void rotateAxis(float angle, float _x, float _y, float _z) {
-    Quaternion q = calculateRotation(angle, new PVector(_x, _y, _z));
+  void rotateAxis(float angle, PVector p) {
+    Quaternion q = calculateRotation(angle, p).mult(new Quaternion(x, y, z, w));
     x = q.x;
     y = q.y;
     z = q.z;
     w = q.w;
-  }
-  
+  }  
+
   // https://stackoverflow.com/questions/4436764/rotating-a-quaternion-on-1-axis
   // https://github.com/jdf/peasycam/blob/master/src/peasy/org/apache/commons/math/geometry/Rotation.java#L20
   Quaternion calculateRotation(float angle, PVector p) {
@@ -56,7 +48,7 @@ class Quaternion {
     float a = cos(halfAngle);
     float b = coeff * p.x;
     float c = coeff * p.y;
-    float d = coeff * p.z;    
+    float d = coeff * p.z;
     return new Quaternion(a, b, c, d).normalize();
   }
   
